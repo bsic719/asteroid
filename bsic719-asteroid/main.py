@@ -1,6 +1,7 @@
 import pygame
 from logger import log_state
 from constants import *
+from player import *
 
 def main():
     print(f"Starting Asteroids with pygame vesion: {pygame.version.ver}")
@@ -11,6 +12,7 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS)
 
     while True:
         log_state()
@@ -18,6 +20,8 @@ def main():
             if event.type == pygame.QUIT:
                 return 
         screen.fill('black')
+        player.draw(screen)
+
         # calling .tick(arg) will pause game loop until arg (in milliseconds) has passed
         # .tick() also returns amt of time that has passed since last time it was called
         # dt = clock.tick(60)/1000
