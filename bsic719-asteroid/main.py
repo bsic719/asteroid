@@ -24,8 +24,11 @@ def main():
 
         # calling .tick(arg) will pause game loop until arg (in milliseconds) has passed
         # .tick() also returns amt of time that has passed since last time it was called
-        # dt = clock.tick(60)/1000
         clock.tick(60)
+        dt = clock.tick(60)/1000
+
+        player.update(dt)
+
         pygame.display.flip()
         # refresh the screen/MAKE SURE TO CALL LAST
 
