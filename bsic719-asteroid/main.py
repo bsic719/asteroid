@@ -1,9 +1,10 @@
 import pygame
 from constants import *
-from logger import log_state
+from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+import sys
 
 def main():
     print(f"Starting Asteroids with pygame vesion: {pygame.version.ver}")
@@ -38,12 +39,18 @@ def main():
         # calling .tick(arg) will pause game loop until arg (in milliseconds) has passed
         # .tick() also returns amt of time that has passed since last time it was called
         clock.tick(60)
-        dt = clock.tick(45)/1000
+        dt = clock.tick(60)/1000
 
         for sprite in drawable:
             sprite.draw(screen)
 
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event('player_hit')
+                print('Game over!')
+                sys.exit()
 
         pygame.display.flip()
         # refresh the screen/MAKE SURE TO CALL LAST
