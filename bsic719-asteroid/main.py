@@ -2,6 +2,8 @@ import pygame
 from constants import *
 from logger import log_state
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     print(f"Starting Asteroids with pygame vesion: {pygame.version.ver}")
@@ -15,9 +17,16 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (updatable, drawable, asteroids)
+    AsteroidField.containers = (updatable)
+
+    asteroidfield = AsteroidField()
 
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS)
+
 
     while True:
         log_state()
@@ -29,7 +38,7 @@ def main():
         # calling .tick(arg) will pause game loop until arg (in milliseconds) has passed
         # .tick() also returns amt of time that has passed since last time it was called
         clock.tick(60)
-        dt = clock.tick(60)/1000
+        dt = clock.tick(45)/1000
 
         for sprite in drawable:
             sprite.draw(screen)
